@@ -21,7 +21,7 @@ jobs:
           cache: 'pip'
 
       - name: Install dependencies
-        run: pip install -r black "black[jupyter]"
+        run: pip install black "black[jupyter]"
 
       - name: Formatting code
         run: black ./*/*.py ./*/*.ipynb
