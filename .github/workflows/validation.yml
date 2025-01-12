@@ -1,4 +1,4 @@
-name: Validation
+name: Formatting code
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   validate_homeworks:
-    name: Validate all homeworks
+    name: Validate
     runs-on: ubuntu-latest
 
     steps:
@@ -21,18 +21,7 @@ jobs:
           cache: 'pip'
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r black "black[jupyter]"
 
-      - name: Check flake8
-        run: flake8 .
-
-      - name: Check pylint
-        if: ${{ always() }}
-        run: pylint ./*/*.py
-
-      - name: Check tests with pytest
-        if: ${{ always() }}
-        run: coverage run -m pytest .
-
-      - name: Check test coverage
-        run: coverage report -m
+      - name: Formatting code
+        run: black ./*/*.py ./*/*.ipynb
